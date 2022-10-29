@@ -1,24 +1,23 @@
 {
-    "manifest_version": 2,
-    "name": "Gitlab Markdown Easy Print",
-    "version": "1.0",
-  
-    "description": "Remove all other components except markdown block content for easier print",
-  
-    "icons": {
-      "48": "icons/icon.png"
-    },
-  
-    "background": {
-        "scripts": ["main.js"]
-    },
-
-    "page_action": {
-        "default_icon": "icons/icon.png",
-        "browser_style": true
-    },
-
-    "permissions": [
-        "activeTab"
-      ]
+  "manifest_version": 2,
+  "name": "Gitlab Markdown Focus",
+  "version": "1.0",
+  "description": "Hide all other parts in Gitlab except markdown viewer",
+  "icons": {
+    "48": "icons/48_enabled.png",
+    "96": "icons/96_enabled.png"
+  },
+  "background": {
+    "scripts": [
+      "main.js"
+    ]
+  },
+  "page_action": {
+    "default_icon": "icons/96_disabled.png",
+    "browser_style": true
+  },
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ]
 }

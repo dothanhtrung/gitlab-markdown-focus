@@ -1,0 +1,3 @@
+[submodule "icons"]
+	path = icons
+	url = git@gitlab.com:kimtinh/gitlab-markdown-focus-assets.git
