@@ -1,17 +1,27 @@
 /* Copyright (C) 2022 Trung Do <dothanhtrung@pm.me> */
 
-const TITLE_FOCUS = "Markdown Focus";
-const TITLE_UNFOCUS = "Unfocus";
+const TITLE_GITLAB_FOCUS = "Gitlab Markdown Focus";
+const TITLE_GITLAB_UNFOCUS = "Gitlab Unfocus";
+const TITLE_GITHUB_FOCUS = "Github Markdown Focus";
+const TITLE_GITHUB_UNFOCUS = "Github Unfocus";
 
 function toggleMarkdown(tab) {
     function gotTitle(title) {
-        if (title === TITLE_FOCUS) {
-            browser.tabs.executeScript({file: "markdown_focus.js"})
-            browser.pageAction.setTitle({tabId: tab.id, title: TITLE_UNFOCUS});
+        if (title === TITLE_GITLAB_FOCUS) {
+            browser.tabs.executeScript({file: "gitlab_markdown_focus.js"})
+            browser.pageAction.setTitle({tabId: tab.id, title: TITLE_GITLAB_UNFOCUS});
             browser.pageAction.setIcon({tabId: tab.id, path: "icons/48_enabled.png"});
-        } else {
-            browser.tabs.executeScript({file: "markdown_unfocus.js"})
-            browser.pageAction.setTitle({tabId: tab.id, title: TITLE_FOCUS});
+        } else if (title === TITLE_GITLAB_UNFOCUS) {
+            browser.tabs.executeScript({file: "gitlab_markdown_unfocus.js"})
+            browser.pageAction.setTitle({tabId: tab.id, title: TITLE_GITLAB_FOCUS});
+            browser.pageAction.setIcon({tabId: tab.id, path: "icons/48_disabled.png"});
+        } else if (title === TITLE_GITHUB_FOCUS) {
+            browser.tabs.executeScript({file: "github_markdown_focus.js"})
+            browser.pageAction.setTitle({tabId: tab.id, title: TITLE_GITHUB_UNFOCUS});
+            browser.pageAction.setIcon({tabId: tab.id, path: "icons/48_enabled.png"});
+        } else if (title === TITLE_GITHUB_UNFOCUS) {
+            browser.tabs.executeScript({file: "github_markdown_unfocus.js"})
+            browser.pageAction.setTitle({tabId: tab.id, title: TITLE_GITHUB_FOCUS});
             browser.pageAction.setIcon({tabId: tab.id, path: "icons/48_disabled.png"});
         }
     }
@@ -27,6 +37,12 @@ function isGitlabMarkdownUrl(url) {
     return url.match(/-\/blob\/.*\.md/gi);
 }
 
+/*
+Returns true only if the URL is Github markdown file page
+*/
+function isGithubMarkdownUrl(url) {
+    return url.match(/github.com\/.*\/blob\/.*\.md/gi);
+}
 
 /*
 Initialize the page action: set icon and title, then show.
@@ -35,7 +51,11 @@ Only operates on tabs whose URL's protocol is applicable.
 function initializePageAction(tab) {
     if (isGitlabMarkdownUrl(tab.url)) {
         browser.pageAction.setIcon({tabId: tab.id, path: "icons/48_disabled.png"});
-        browser.pageAction.setTitle({tabId: tab.id, title: TITLE_FOCUS});
+        browser.pageAction.setTitle({tabId: tab.id, title: TITLE_GITLAB_FOCUS});
+        browser.pageAction.show(tab.id);
+    } else if (isGithubMarkdownUrl(tab.url)) {
+        browser.pageAction.setIcon({tabId: tab.id, path: "icons/48_disabled.png"});
+        browser.pageAction.setTitle({tabId: tab.id, title: TITLE_GITHUB_FOCUS});
         browser.pageAction.show(tab.id);
     }
 }
