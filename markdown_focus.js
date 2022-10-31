@@ -1,11 +1,18 @@
 /* Copyright (C) 2022 Trung Do <dothanhtrung@pm.me> */
 
 var content_holder = document.getElementById("blob-content-holder");
-var blob_viewer = content_holder.getElementsByClassName("blob-viewer")[0];
+var blob_viewers = content_holder.getElementsByClassName("blob-viewer");
 var layout_pages = document.getElementsByClassName("layout-page");
 
-var cur = blob_viewer;
+var cur;
 var nodes = [];
+
+for (const blob_viewer of blob_viewers) {
+    if (blob_viewer.getAttribute("data-type") === "rich") {
+        cur = blob_viewer;
+        break;
+    }
+}
 
 do {
     let parent = cur.parentNode;
