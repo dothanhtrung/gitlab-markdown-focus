@@ -1,9 +1,8 @@
 /* Copyright (C) 2022 Trung Do <dothanhtrung@pm.me> */
 
-nodes.forEach(function (node) {
-    node.style.removeProperty('display');
-});
+showHiddenNodes(nodes);
 
-for (const i in layout_pages) {
-    layout_pages[i].style.removeProperty('padding-left');
+// Restore padding-left of layout-page
+for (const layout_page of layout_pages) {
+    layout_page.style.removeProperty('padding-left');
 }

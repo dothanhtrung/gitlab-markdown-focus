@@ -7,6 +7,7 @@ const TITLE_GITHUB_UNFOCUS = "Github Unfocus";
 
 function toggleMarkdown(tab) {
     function gotTitle(title) {
+        browser.tabs.executeScript({file: "common.js"})
         if (title === TITLE_GITLAB_FOCUS) {
             browser.tabs.executeScript({file: "gitlab_markdown_focus.js"})
             browser.pageAction.setTitle({tabId: tab.id, title: TITLE_GITLAB_UNFOCUS});
